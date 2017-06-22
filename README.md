@@ -13,7 +13,7 @@ This docker image autoconfigures threads as suggested by xmr-stak-cpu. All xmr-s
 # How to use this image
 
 ```console
-docker run -d --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' -e AUTO_THREAD_CONFIG=true --name xmr-stak-cpu timonmat/xmr-stak-cpu
+docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' -e AUTO_THREAD_CONFIG=true --name xmr-stak-cpu timonmat/xmr-stak-cpu
 ```
 
 'AUTO_THREAD_CONFIG=true' uses the xmr-stak-cpu recommended thread settings.
