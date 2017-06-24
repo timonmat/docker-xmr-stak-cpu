@@ -34,7 +34,9 @@
 {{THREAD_CONFIG}}
 
 {% else %}
-   { "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 0 },
+   {% for number in range((CORES|int)) %} 
+      { "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" :{{(number)}} },
+    {% endfor %} 
 {% endif %}
 
 ],
@@ -108,7 +110,7 @@
  * wallet_address - Your wallet, or pool login.
  * pool_password  - Can be empty in most cases or "x".
  */
-"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:7777") }}",
+"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:3333") }}",
 "wallet_address" : "{{ WALLET_ADDRESS | default("") }}",
 "pool_password" : "{{ POOL_PASSWORD | default("") }}",
 
@@ -143,7 +145,7 @@
  *                 3 - All of level 1, and new job (block) event in all cases, result submission event.
  *                 4 - All of level 3, and automatic hashrate report printing
  */
-"verbose_level" : {{ VERBOSE_LEVEL | default("3") }},
+"verbose_level" : {{ VERBOSE_LEVEL | default("4") }},
 
 /*
  * Automatic hashrate report

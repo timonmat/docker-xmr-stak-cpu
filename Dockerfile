@@ -25,9 +25,8 @@ RUN mkdir src \
     && cp -t /app bin/xmr-stak-cpu bin/config.txt \
     && cd /app  
 
-COPY xmr-stak-cpu.conf.tpl /app/xmr-stak-cpu.conf.tpl
-COPY docker-entrypoint.sh /app/docker-entrypoint.sh
-RUN chmod +x /app/docker-entrypoint.sh
+COPY app .
+RUN chmod 777 -R /app
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
-CMD ["/app/xmr-stak-cpu"]
+CMD ["xmr-stak-cpu"]
