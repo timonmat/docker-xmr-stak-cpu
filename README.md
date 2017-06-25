@@ -23,6 +23,8 @@ You can also use (for example)
 -e THREAD_CONFIG='{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 0 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 1 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 3 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 4 },'
 ```
 
+without the AUTO_THREAD_CONFIG=true, or THREAD_CONFIG="" env variables the image starts up a number of threads equivalent to core count, which works best when you have for example 2 physical processors, and the (L3 cache/2) is higher than core count on one processor. 
+
 You can set all config.txt [GitHub](https://github.com/fireice-uk/xmr-stak-cpu/blob/master/config.txt) variables as docker run environment variables. Just use all caps in env var names. 
 
 
