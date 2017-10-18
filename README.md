@@ -8,12 +8,12 @@ This docker image autoconfigures threads as suggested by xmr-stak-cpu. All xmr-s
 
 - [Discussion](https://www.reddit.com/r/Monero/comments/5lsfgt/xmrstakcpu_high_performance_open_source_miner/)
 - [Source Code](https://github.com/fireice-uk/xmr-stak-cpu)
-- [Dockerfile](https://github.com/neffets/docker-xmr-stak-cpu)
+- [Dockerfile](https://github.com/timonmat/docker-xmr-stak-cpu)
 
 # How to use this image
 
 ```console
-docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' -e AUTO_THREAD_CONFIG=true --name xmr-stak-cpu neffets/xmr-stak-cpu
+docker run -d --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' -e AUTO_THREAD_CONFIG=true --name xmr-stak-cpu timonmat/xmr-stak-cpu
 ```
 
 'AUTO_THREAD_CONFIG=true' uses the xmr-stak-cpu recommended thread settings.
