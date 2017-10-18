@@ -93,16 +93,6 @@
 "nicehash_nonce" : {{ NICEHASH_NONCE | default("false") }},
 
 /*
- * Manual hardware AES override
- *
- * Some VMs don't report AES capability correctly. You can set this value to true to enforce hardware AES or 
- * to false to force disable AES or null to let the miner decide if AES is used.
- * 
- * WARNING: setting this to true on a CPU that doesn't support hardware AES will crash the miner.
- */
-"aes_override" : {{ AES_OVERRIDE | default("null") }},
-
-/*
  * TLS Settings
  * If you need real security, make sure tls_secure_algo is enabled (otherwise MITM attack can downgrade encryption
  * to trivially breakable stuff like DES and MD5), and verify the server's fingerprint through a trusted channel.
@@ -120,7 +110,7 @@
  * wallet_address - Your wallet, or pool login.
  * pool_password  - Can be empty in most cases or "x".
  */
-"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:5555") }}",
+"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:3333") }}",
 "wallet_address" : "{{ WALLET_ADDRESS | default("") }}",
 "pool_password" : "{{ POOL_PASSWORD | default("") }}",
 
@@ -166,14 +156,6 @@
 "h_print_time" : {{ H_PRINT_TIME | default("60") }},
 
 /*
- * Daemon mode
- *
- * If you are running the process in the background and you don't need the keyboard reports, set this to true.
- * This should solve the hashrate problems on some emulated terminals.
- */
-"daemon_mode" : {{ DAEMON_MODE | default("true") }},
-
-/*
  * Output file
  *
  * output_file  - This option will log all output to a file.
@@ -195,4 +177,4 @@
  * prefer_ipv4 - IPv6 preference. If the host is available on both IPv4 and IPv6 net, which one should be choose?
  *               This setting will only be needed in 2020's. No need to worry about it now.
  */
-"prefer_ipv4" : true,
+"prefer_ipv4" : true

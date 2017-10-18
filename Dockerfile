@@ -39,6 +39,7 @@ RUN apk del --no-cache --purge \
       coreutils \
       git || echo "apk purge error ignored"
 
+<<<<<<< HEAD
 ###
 # Deployed image
 ###
@@ -60,3 +61,10 @@ RUN apk add --no-cache \
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["xmr-stak-cpu"]
 
+=======
+COPY app .
+RUN chmod 777 -R /app
+
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
+CMD ["xmr-stak-cpu"]
+>>>>>>> added auto configuration based on core count in case CONFIG env variables are not used.
