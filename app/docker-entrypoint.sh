@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 #!/bin/ash
-=======
-#!/bin/bash 
->>>>>>> added auto configuration based on core count in case CONFIG env variables are not used.
+
 set -x
 
 if [ -z "${CORES}" ]; then
