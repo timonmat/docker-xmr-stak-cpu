@@ -1,3 +1,6 @@
+Neffets has made this much better, so this repo is *deprecated*.
+https://github.com/neffets/docker-xmr-stak-cpu
+
 # What is XMR-Stak-CPU?
 
 XMR-Stak-CPU is a universal Stratum pool miner. This is the CPU-mining version.
