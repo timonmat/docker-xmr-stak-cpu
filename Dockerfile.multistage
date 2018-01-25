@@ -3,7 +3,7 @@
 ###
 FROM alpine:edge AS build
 
-ENV XMR_STAK_CPU_VERSION v1.3.0-1.5.0
+ENV XMR_STAK_CPU_VERSION final
 
 COPY app /app
 
