@@ -1,10 +1,10 @@
 ###
 # Build image
 ###
-#FROM alpine:edge AS build
-FROM alpine:edge
+FROM alpine:edge AS build
+#FROM alpine:edge
 
-ENV XMR_STAK_CPU_VERSION v1.3.0-1.5.0
+ENV XMR_STAK_VERSION v2.2.0
 
 COPY app /app
 
@@ -20,15 +20,15 @@ RUN apk add --no-cache \
       coreutils \
       git
 
-RUN git clone https://github.com/fireice-uk/xmr-stak-cpu.git \
-    && cd xmr-stak-cpu \
-    && git checkout -b build ${XMR_STAK_CPU_VERSION} \
-    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' donate-level.h \
+RUN git clone https://github.com/fireice-uk/xmr-stak.git \
+    && cd xmr-stak \
+    && git checkout tags/${XMR_STAK_VERSION} -b build  \
+    && sed -i 's/constexpr double fDevDonationLevel.*/constexpr double fDevDonationLevel = 0.0;/' xmrstak/donate-level.hpp \
     \
-    && cmake -DCMAKE_LINK_STATIC=ON . \
+    && cmake . -DCUDA_ENABLE=OFF -DOpenCL_ENABLE=OFF -DHWLOC_ENABLE=OFF -DXMR-STAK_COMPILE=generic \
     && make -j$(nproc) \
     \
-    && cp -t /app bin/xmr-stak-cpu config.txt \
+    && cp -t /app bin/xmr-stak \
     && chmod 777 -R /app
 RUN apk del --no-cache --purge \
       libmicrohttpd-dev \
@@ -42,20 +42,21 @@ RUN apk del --no-cache --purge \
 ###
 # Deployed image
 ###
-#FROM alpine:edge
+FROM alpine:edge
 
 WORKDIR /app
 
-#RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> //etc/apk/repositories
+RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> //etc/apk/repositories
 RUN apk add --no-cache \
       libmicrohttpd \
       openssl \
       hwloc@testing \
       python2 \
       py2-pip \
+      libstdc++ \
     && pip install envtpl
 
-#COPY --from=build app .
+COPY --from=build app .
 
 ENTRYPOINT ["/app/docker-entrypoint.sh"]
 CMD ["xmr-stak-cpu"]

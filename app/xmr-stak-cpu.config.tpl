@@ -1,45 +1,15 @@
-/*
- * Thread configuration for each thread. Make sure it matches the number above.
- * low_power_mode - This mode will double the cache usage, and double the single thread performance. It will
- *                  consume much less power (as less cores are working), but will max out at around 80-85% of
- *                  the maximum performance.
- *
- * no_prefetch -    Some sytems can gain up to extra 5% here, but sometimes it will have no difference or make
- *                  things slower.
- *
- * affine_to_cpu -  This can be either false (no affinity), or the CPU core number. Note that on hyperthreading
- *                  systems it is better to assign threads to physical cores. On Windows this usually means selecting
- *                  even or odd numbered cpu numbers. For Linux it will be usually the lower CPU numbers, so for a 4
- *                  physical core CPU you should select cpu numbers 0-3.
- *
- * On the first run the miner will look at your system and suggest a basic configuration that will work,
- * you can try to tweak it from there to get the best performance.
- *
- * A filled out configuration should look like this:
- * "cpu_threads_conf" :
- * [
- *      { "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 0 },
- *      { "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 1 },
- * ],
- */
-"cpu_threads_conf" :
+
+"pool_list" :
 [
-
-{% if (AUTO_THREAD_CONFIG|lower)=="true" %}
-
-{{AUTO_CONFIGURATION}}
-
-{% elif THREAD_CONFIG is defined %}
-
-{{THREAD_CONFIG}}
-
-{% else %}
-   {% for number in range((CORES|int)) %} 
-      { "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" :{{(number)}} },
-    {% endfor %} 
-{% endif %}
-
+	{"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:5555") }}", "wallet_address" : "{{ WALLET_ADDRESS | default("") }}", "pool_password" : "{{ POOL_PASSWORD | default("") }}", "use_nicehash" : {{ USE_NICEHASH | default("false") }}, "use_tls" : {{ USE_TLS | default("false") }}, "tls_fingerprint" : "{{ TLS_FINGERPRINT | default("") }}", "pool_weight" : 1 },
 ],
+
+/*
+ * currency to mine
+ * allowed values: 'monero' or 'aeon'
+ */
+"currency" : "{{ CURRENCY | default("monero") }}",
+
 
 /*
  * LARGE PAGE SUPPORT
@@ -85,14 +55,6 @@
 "use_slow_memory" : "{{ USE_SLOW_MEMORY | default("warn") }}",
 
 /*
- * NiceHash mode
- * nicehash_nonce - Limit the noce to 3 bytes as required by nicehash. This cuts all the safety margins, and
- *                  if a block isn't found within 30 minutes then you might run into nonce collisions. Number
- *                  of threads in this mode is hard-limited to 32.
- */
-"nicehash_nonce" : {{ NICEHASH_NONCE | default("false") }},
-
-/*
  * Manual hardware AES override
  *
  * Some VMs don't report AES capability correctly. You can set this value to true to enforce hardware AES or 
@@ -111,18 +73,9 @@
  * tls_secure_algo - Use only secure algorithms. This will make us quit with an error if we can't negotiate a secure algo.
  * tls_fingerprint - Server's SHA256 fingerprint. If this string is non-empty then we will check the server's cert against it.
  */
-"use_tls" : {{ USE_TLS | default("false") }},
-"tls_secure_algo" : {{ TLS_SECURE_ALGO | default("true") }},
-"tls_fingerprint" : "{{ TLS_FINGERPRINT | default("") }}",
 
-/*
- * pool_address	  - Pool address should be in the form "pool.supportxmr.com:3333". Only stratum pools are supported.
- * wallet_address - Your wallet, or pool login.
- * pool_password  - Can be empty in most cases or "x".
- */
-"pool_address" : "{{ POOL_ADDRESS | default("pool.supportxmr.com:5555") }}",
-"wallet_address" : "{{ WALLET_ADDRESS | default("") }}",
-"pool_password" : "{{ POOL_PASSWORD | default("") }}",
+"tls_secure_algo" : {{ TLS_SECURE_ALGO | default("true") }},
+
 
 /*
  * Network timeouts.
@@ -156,6 +109,7 @@
  *                 4 - All of level 3, and automatic hashrate report printing
  */
 "verbose_level" : {{ VERBOSE_LEVEL | default("4") }},
+"print_motd" : {{ PRINT_MOTD | default("true") }},
 
 /*
  * Automatic hashrate report
@@ -174,6 +128,14 @@
 "daemon_mode" : {{ DAEMON_MODE | default("true") }},
 
 /*
+ * Buffered output control.
+ * When running the miner through a pipe, standard output is buffered. This means that the pipe won't read
+ * each output line immediately. This can cause delays when running in background.
+ * Set this option to true to flush stdout after each line, so it can be read immediately.
+ */
+"flush_stdout" : false,
+
+/*
  * Output file
  *
  * output_file  - This option will log all output to a file.
@@ -190,6 +152,19 @@
  * httpd_port - Port we should listen on. Default, 0, will switch off the server.
  */
 "httpd_port" : {{ HTTPD_PORT | default("0") }},
+
+/*
+ * HTTP Authentication
+ *
+ * This allows you to set a password to keep people on the Internet from snooping on your hashrate.
+ * Keep in mind that this is based on HTTP Digest, which is based on MD5. To a determined attacker
+ * who is able to read your traffic it is as easy to break a bog door latch.
+ *
+ * http_login - Login. Empty login disables authentication.
+ * http_pass  - Password.
+ */ 
+"http_login" : "{{ HTTP_LOGIN | default("") }}",
+"http_pass" : "{{ HTTP_PASS | default("") }}",
 
 /*
  * prefer_ipv4 - IPv6 preference. If the host is available on both IPv4 and IPv6 net, which one should be choose?
