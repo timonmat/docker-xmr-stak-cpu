@@ -25,11 +25,7 @@
 "cpu_threads_conf" :
 [
 
-{% if (AUTO_THREAD_CONFIG|lower)=="true" %}
-
-{{AUTO_CONFIGURATION}}
-
-{% elif THREAD_CONFIG is defined %}
+{% if THREAD_CONFIG is defined %}
 
 {{THREAD_CONFIG}}
 
