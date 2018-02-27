@@ -10,7 +10,7 @@ envtpl /app/xmr-stak-cpu.config.tpl -o /app/config.txt --allow-missing --keep-te
 envtpl /app/xmr-stak-cpu.cpu.tpl -o /app/cpu.txt --allow-missing --keep-template
 
 if [ "$1" = 'xmr-stak-cpu' ]; then
-    exec /app/xmr-stak --cpu cpu.txt
+    exec /app/xmr-stak --cpu /app/cpu.txt -c /app/config.txt
 fi
 
 exec "$@"
