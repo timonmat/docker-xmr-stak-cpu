@@ -1,11 +1,12 @@
-Neffets has made this much better, so this repo is *deprecated*.
+Neffets has made this much better, so this repo is practically *deprecated*. 
 https://github.com/neffets/docker-xmr-stak-cpu
+...(although it seems I still update occasionally)
 
-# What is XMR-Stak-CPU?
+# What is XMR-Stak?
 
-XMR-Stak-CPU is a universal Stratum pool miner. This is the CPU-mining version.
+XMR-Stak is a universal Stratum pool miner. This is a build for CPU-mining only.
 
-This docker image autoconfigures threads as suggested by xmr-stak-cpu. All xmr-stak-cpu's config.txt variables can be configured with docker run environment variables.
+This docker image autoconfigures threads by simply getting the core count. All xmr-stak's config.txt variables can be configured with docker run environment variables.
 
 ## Links
 
@@ -16,17 +17,17 @@ This docker image autoconfigures threads as suggested by xmr-stak-cpu. All xmr-s
 # How to use this image
 
 ```console
-docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' -e AUTO_THREAD_CONFIG=true --name xmr-stak-cpu timonmat/xmr-stak-cpu
+docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' --name xmr-stak-cpu timonmat/xmr-stak-cpu
 ```
 
-'AUTO_THREAD_CONFIG=true' uses the xmr-stak-cpu recommended thread settings.
 
 You can also use (for example)
 ```console
 -e THREAD_CONFIG='{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 0 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 1 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 3 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 4 },'
 ```
+by default the image starts up a number of threads equivalent to core count, which works best when you have for example 2 physical processors, and the (L3 cache/2) is higher than core count on one processor.
 
-without the AUTO_THREAD_CONFIG=true, or THREAD_CONFIG="" env variables the image starts up a number of threads equivalent to core count, which works best when you have for example 2 physical processors, and the (L3 cache/2) is higher than core count on one processor. 
+THREAD_CONFIG="" env variable can be used to manually define cpu config.
 
 You can set all config.txt [GitHub](https://github.com/fireice-uk/xmr-stak-cpu/blob/master/config.txt) variables as docker run environment variables. Just use all caps in env var names. 
 
