@@ -5,7 +5,7 @@
 FROM alpine:3.6 AS build
 #FROM alpine:edge
 
-ENV XMR_STAK_VERSION 2.3.0
+ENV XMR_STAK_VERSION 2.4.5
 
 COPY app /app
 
@@ -57,7 +57,8 @@ RUN apk add --no-cache \
       python2 \
       py2-pip \
       libstdc++ \
-    && pip install envtpl
+      && pip install --upgrade pip \
+      && pip install envtpl
 
 COPY --from=build app .
 
