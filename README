@@ -1,7 +1,7 @@
 
 # About this Repo
 
-This is the Git repo of the Docker [neffets/docker-xmr-stak-cpu](https://hub.docker.com/r/neffets/docker-xmr-stak-cpu/) image. See [the Docker Hub page](https://hub.docker.com/r/neffets/docker-xmr-stak-cpu/) for the full readme on how to use this Docker image.
+This is the Git repo of the Docker [timonmat/docker-xmr-stak-cpu](https://hub.docker.com/r/timonmat/docker-xmr-stak-cpu/) image. See [the Docker Hub page](https://hub.docker.com/r/timonmat/docker-xmr-stak-cpu/) for the full readme on how to use this Docker image.
 
 [XMR-Stak-CPU original](https://github.com/fireice-uk/xmr-stak-cpu) is a universal Stratum pool miner. This is the CPU-mining version.
 [forked git-repo for docker](https://github.com/neffets/docker-xmr-stak-cpu) - original based on Dockerfile from minecoins.
