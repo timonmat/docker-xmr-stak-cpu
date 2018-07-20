@@ -57,7 +57,6 @@ RUN apk add --no-cache \
       python2 \
       py2-pip \
       libstdc++ \
-      && pip install --upgrade pip \
       && pip install envtpl
 
 COPY --from=build app .
