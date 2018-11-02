@@ -1,10 +1,11 @@
 ###
 # Build image
 ###
-FROM alpine:edge AS build
+#FROM alpine:edge AS build
+FROM alpine:3.6 AS build
 #FROM alpine:edge
 
-ENV XMR_STAK_VERSION 2.3.0
+ENV XMR_STAK_VERSION 2.4.5
 
 COPY app /app
 
@@ -13,6 +14,7 @@ WORKDIR /usr/local/src
 RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> //etc/apk/repositories
 RUN apk add --no-cache \
       libmicrohttpd-dev \
+      libcrypto1.0 \
       openssl-dev \
       hwloc-dev@testing \
       build-base \
@@ -42,7 +44,8 @@ RUN apk del --no-cache --purge \
 ###
 # Deployed image
 ###
-FROM alpine:edge
+#FROM alpine:edge
+FROM alpine:3.6
 
 WORKDIR /app
 
@@ -54,7 +57,7 @@ RUN apk add --no-cache \
       python2 \
       py2-pip \
       libstdc++ \
-    && pip install envtpl
+      && pip install envtpl
 
 COPY --from=build app .
 
