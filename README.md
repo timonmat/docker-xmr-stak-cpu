@@ -12,18 +12,19 @@ This docker image autoconfigures threads by simply getting the core count. All x
 
 - [Discussion](https://www.reddit.com/r/Monero/comments/5lsfgt/xmrstakcpu_high_performance_open_source_miner/)
 - [Source Code](https://github.com/fireice-uk/xmr-stak)
-- [Dockerfile](https://github.com/timonmat/docker-xmr-stak-cpu)
+- [Dockerfile old](https://github.com/timonmat/docker-xmr-stak-cpu)
+- [Dockerfile](https://github.com/neffets/docker-xmr-stak-cpu)
 
 # How to use this image
 
 ```console
-docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' --name xmr-stak-cpu timonmat/xmr-stak-cpu
+docker run -itd --restart unless-stopped -e WALLET_ADDRESS='' -e POOL_PASSWORD='' -e POOL_ADDRESS='' --name xmr-stak-cpu neffets/xmr-stak-cpu
 ```
 
 
 You can also use (for example)
 ```console
--e THREAD_CONFIG='{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 0 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 1 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 3 },{ "low_power_mode" : false, "no_prefetch" : true, "affine_to_cpu" : 4 },'
+-e THREAD_CONFIG='{ "low_power_mode" : false, "no_prefetch" : true, "asm" : "auto", "affine_to_cpu" : 0 },{ "low_power_mode" : false, "no_prefetch" : true, "asm" : "auto", "affine_to_cpu" : 1 },{ "low_power_mode" : false, "no_prefetch" : true, "asm" : "auto", "affine_to_cpu" : 3 },{ "low_power_mode" : false, "no_prefetch" : true, "asm" : "auto", "affine_to_cpu" : 4 },'
 ```
 by default the image starts up a number of threads equivalent to core count, which works best when you have for example 2 physical processors, and the (L3 cache/2) is higher than core count on one processor.
 
