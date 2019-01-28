@@ -11,7 +11,7 @@ This docker image autoconfigures threads by simply getting the core count. All x
 ## Links
 
 - [Discussion](https://www.reddit.com/r/Monero/comments/5lsfgt/xmrstakcpu_high_performance_open_source_miner/)
-- [Source Code](https://github.com/fireice-uk/xmr-stak-cpu)
+- [Source Code](https://github.com/fireice-uk/xmr-stak)
 - [Dockerfile](https://github.com/timonmat/docker-xmr-stak-cpu)
 
 # How to use this image
@@ -29,7 +29,7 @@ by default the image starts up a number of threads equivalent to core count, whi
 
 THREAD_CONFIG="" env variable can be used to manually define cpu config.
 
-You can set all config.txt [GitHub](https://github.com/fireice-uk/xmr-stak-cpu/blob/master/config.txt) variables as docker run environment variables. Just use all caps in env var names. 
+You can set all config.txt [GitHub](https://github.com/fireice-uk/xmr-stak/blob/master/config.txt) variables as docker run environment variables. Just use all caps in env var names. 
 
 
 Large pages need a properly set up OS. Run this on host side.
