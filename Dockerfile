@@ -2,10 +2,10 @@
 # Build image
 ###
 #FROM alpine:edge AS build
-FROM alpine:3.6 AS build
+FROM alpine:3.8 AS build
 #FROM alpine:edge
 
-ENV XMR_STAK_VERSION 2.4.5
+ENV XMR_STAK_VERSION 2.4.7
 
 COPY app /app
 
